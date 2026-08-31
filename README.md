@@ -28,7 +28,7 @@
 
 ## Запуск
 
-```
+```bash
 cd fitomac-vscode-plugin
 npm install
 npm run compile
@@ -59,7 +59,7 @@ Microsoft VSCode.
 
 ## Сборка в VSIX
 
-```
+```bash
 npm run package
 ```
 
