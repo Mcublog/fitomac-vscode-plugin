@@ -1,0 +1,83 @@
+{
+  "name": "vscode-fito",
+  "displayName": "Fito Macro (Pirit 2F)",
+  "description": "Подсветка номеров параметров в макросах FITO для Пирит 2Ф (.mac / .mls)",
+  "version": "0.1.2",
+  "publisher": "fitomac",
+  "icon": "./resource/paperclip.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mcublog/fitomac.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:fito-macro",
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "fito-macro",
+        "aliases": [
+          "Fito Macro",
+          "fito",
+          "FITO"
+        ],
+        "extensions": [
+          ".mac",
+          ".mls"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./resource/paperclip.png",
+          "dark": "./resource/paperclip.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "fito-macro",
+        "scopeName": "source.fito-macro",
+        "path": "./syntaxes/fito-macro.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "Fito Macro",
+      "properties": {
+        "fito.parameterBadges.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Показывать цифровые бейджи номеров параметров после каждой ';'."
+        },
+        "fito.parameterBadges.color": {
+          "type": "string",
+          "default": "#8080809c",
+          "description": "Цвет бейджа номера параметра (CSS-цвет, поддерживает прозрачность через 8-значный hex)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run compile"
+  },
+"devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.75.0",
+    "@vscode/vsce": "^2.24.0",
+    "typescript": "^5.4.0"
+  },
+  "overrides": {
+    "cheerio": "1.0.0-rc.12"
+  }
+}

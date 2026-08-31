@@ -1,0 +1,106 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Fito Macro",
+  "scopeName": "source.fito-macro",
+  "fileTypes": [
+    "mac",
+    "mls"
+  ],
+  "patterns": [
+    {
+      "include": "#header"
+    },
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#special-command"
+    },
+    {
+      "include": "#conditional"
+    },
+    {
+      "include": "#command"
+    }
+  ],
+  "repository": {
+    "header": {
+      "name": "meta.header.fito-macro",
+      "match": "^\\[\\s*FITO\\s+Macro(\\s+List)?\\s*\\].*$",
+      "captures": {
+        "0": {
+          "name": "keyword.control.header.fito-macro"
+        }
+      }
+    },
+    "comment": {
+      "patterns": [
+        {
+          "match": "^[;#].*$",
+          "name": "comment.line.fito-macro"
+        }
+      ]
+    },
+    "special-command": {
+      "patterns": [
+        {
+          "begin": "^\\s*&",
+          "end": "$",
+          "name": "meta.special-command.fito-macro",
+          "patterns": [
+            {
+              "match": "^\\s*(&(?:Sleep|SendBinary|SendMarkCode|SendGraphic))",
+              "name": "keyword.control.special.fito-macro"
+            },
+            {
+              "match": "&\\S+",
+              "name": "keyword.control.special.fito-macro"
+            },
+            {
+              "match": "\\b\\d+\\b",
+              "name": "constant.numeric.fito-macro"
+            }
+          ]
+        }
+      ]
+    },
+    "conditional": {
+      "begin": "^\\s*(~)\\s*(\\$\\d+)?",
+      "end": "$",
+      "name": "meta.conditional.fito-macro",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.conditional.fito-macro"
+        },
+        "2": {
+          "name": "variable.parameter.fito-macro"
+        }
+      },
+      "patterns": [
+        {
+          "match": "(?:!)?(<=|>=|=|<|>)",
+          "name": "keyword.operator.comparison.fito-macro"
+        }
+      ]
+    },
+    "command": {
+      "begin": "^(?=[^*&~;#[\\s])",
+      "end": "$",
+      "name": "meta.command.fito-macro",
+      "patterns": [
+        {
+          "match": "^\\s*\\*",
+          "name": "keyword.control.nonfatal.fito-macro"
+        },
+        {
+          "name": "constant.numeric.command-code.fito-macro",
+          "match": "([0-9A-Fa-f]+)[;\\s]"
+        },
+        {
+          "match": "\\$\\$R",
+          "name": "constant.character.placeholder.fito-macro"
+        }
+      ]
+    }
+  }
+}
